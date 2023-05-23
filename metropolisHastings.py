@@ -55,7 +55,7 @@ print("observed CLS shape:", observed_cls.shape)
 COSMO_PARAMS_NAMES = ["n_s", "omega_b", "omega_cdm", "100*theta_s", "ln10^{10}A_s", "tau_reio"] # Parameters names
 COSMO_PARAMS_MEAN_PRIOR = np.array([0.9665, 0.02242, 0.11933, 1.04101, 3.047, 0.0561]) # Prior mean
 COSMO_PARAMS_SIGMA_PRIOR = np.array([0.0038, 0.00014, 0.00091, 0.00029, 0.014, 0.0071]) # Prior std
-proposal_std = COSMO_PARAMS_SIGMA_PRIOR*0.001
+proposal_std = COSMO_PARAMS_SIGMA_PRIOR*0.1
 prior_std = COSMO_PARAMS_SIGMA_PRIOR
 prior_mean = COSMO_PARAMS_MEAN_PRIOR
 
@@ -113,7 +113,7 @@ def metropolis(theta_init, cls_hat, n_iter=5000, lmax=2500, pol=True):
     inv_cls_true = utils_mh.invert_all_matrices(cls_true)
     start = time.time()
     for l in range(1,n_iter+1):
-        if l+1%100==0:
+        if (l+1)%100==0:
             end = time.time()
             print("Iteration", l)
             print("Duration:", end - start)
