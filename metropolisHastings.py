@@ -1,7 +1,6 @@
 import numpy as np
 from numba import prange, njit
 import utils
-import torch
 import time
 
 
@@ -32,17 +31,16 @@ all_cls_bb = np.vstack(all_cls_bb)
 all_cls_te = np.vstack(all_cls_te)
 all_theta = np.vstack(all_theta)
 
-all_theta = torch.tensor(all_theta[:, :], dtype=torch.float32)
-all_cls_tt = torch.tensor(all_cls_tt[:, 2:], dtype=torch.float32)
-all_cls_ee = torch.tensor(all_cls_ee[:, 2:], dtype=torch.float32)
-all_cls_bb = torch.tensor(all_cls_bb[:, 2:], dtype=torch.float32)
-all_cls_te = torch.tensor(all_cls_te[:, 2:], dtype=torch.float32)
+all_theta = all_theta[:, :]
+all_cls_tt = all_cls_tt[:, 2:]
+all_cls_ee = all_cls_ee[:, 2:]
+all_cls_bb = all_cls_bb[:, 2:]
+all_cls_te = all_cls_te[:, 2:]
 
-print(all_cls_tt.shape)
-observed_cls_tt = all_cls_tt[19369:][100].detach().numpy()
-observed_cls_ee = all_cls_ee[19369:][100].detach().numpy()
-observed_cls_bb = all_cls_bb[19369:][100].detach().numpy()
-observed_cls_te = all_cls_te[19369:][100].detach().numpy()
+observed_cls_tt = all_cls_tt[19369:][100]
+observed_cls_ee = all_cls_ee[19369:][100]
+observed_cls_bb = all_cls_bb[19369:][100]
+observed_cls_te = all_cls_te[19369:][100]
 
 observed_cls = np.zeros((2499, 3,3))
 observed_cls[:, 0, 0] = observed_cls_tt
