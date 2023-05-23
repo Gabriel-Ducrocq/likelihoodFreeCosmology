@@ -83,7 +83,8 @@ def compute_log_likelihood(cls_hat, cls_true, cls_true_inv):
     log_lik_ell = np.zeros(l)
     for m in prange(2, l):
         log_lik_ell[m] = -((2*m+1)/2) * utils_mh.compute_trace(utils_mh.matrix_product(cls_hat[m], cls_true_inv[m])) - ((2*m+1)/2) * np.log(utils_mh.compute_3x3_det(cls_true[m]))
-        print("Log lik ell", str(m), log_lik_ell[m])
+        if m < 10:
+            print("Log lik ell", str(m), log_lik_ell[m])
 
     return np.sum(log_lik_ell)
 
