@@ -78,10 +78,11 @@ def compute_log_likelihood(cls_hat, cls_true, cls_true_inv):
     :param cls_true_inv: matrix 3x3 of inverted power spectrum
     :return: log likelhood
     """
-    l = cls_true.shape[0]
+    ##Adding 2 because we don't count monopole and dipole, so  in fact l = 0 is l= 2
+    l = cls_true.shape[0] + 2
     log_lik_ell = np.zeros(l)
-    for m in prange(l):
-        log_lik_ell[m] = -((2*m+1)/2) * utils_mh.compute_trace(utils_mh.matrix_product(cls_hat, cls_true_inv)) - ((2*m+1)/2) * np.log(utils_mh.compute_3x3_det(cls_true))
+    for m in prange(2, l):
+        log_lik_ell[m] = -((2*m+1)/2) * utils_mh.compute_trace(utils_mh.matrix_product(cls_hat[m], cls_true_inv[m])) - ((2*m+1)/2) * np.log(utils_mh.compute_3x3_det(cls_true[m]))
 
     return np.sum(log_lik_ell)
 
