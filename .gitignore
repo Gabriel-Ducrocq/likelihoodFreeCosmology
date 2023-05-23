@@ -1,0 +1,7 @@
+data*
+*.npy
+*ipynb
+network
+lightning_logs*
+*zip
+__pycache__*
