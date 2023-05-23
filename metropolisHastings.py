@@ -42,6 +42,8 @@ observed_cls_ee = all_cls_ee[19369:][100]
 observed_cls_bb = all_cls_bb[19369:][100]
 observed_cls_te = all_cls_te[19369:][100]
 
+true_theta = all_theta[19369:][100]
+
 observed_cls = np.zeros((2499, 3,3))
 observed_cls[:, 0, 0] = observed_cls_tt
 observed_cls[:, 1, 1] = observed_cls_ee
@@ -58,7 +60,6 @@ COSMO_PARAMS_SIGMA_PRIOR = np.array([0.0038, 0.00014, 0.00091, 0.00029, 0.014, 0
 proposal_std = COSMO_PARAMS_SIGMA_PRIOR*0.01
 prior_std = COSMO_PARAMS_SIGMA_PRIOR
 prior_mean = COSMO_PARAMS_MEAN_PRIOR
-
 
 
 #def compute_log_likelihood(cls_hat, cls_true, cls_true_inv):
@@ -109,6 +110,7 @@ def metropolis(theta_init, cls_hat, n_iter=5000, lmax=2500, pol=True):
     all_theta = []
     all_theta.append(theta_init)
     theta = theta_init
+    theta[1:] = true_theta[1:]
     cls_true = utils_mh.generate_matrix_cls(theta, pol=pol)
     inv_cls_true = utils_mh.invert_all_matrices(cls_true)
     start = time.time()
@@ -120,6 +122,7 @@ def metropolis(theta_init, cls_hat, n_iter=5000, lmax=2500, pol=True):
             start = time.time()
 
         theta_new = propose_theta(theta)
+        theta_new[1:] = true_theta[1:]
         cls_true_new = utils_mh.generate_matrix_cls(theta_new, pol=pol)
         inv_cls_true_new = utils_mh.invert_all_matrices(cls_true_new)
 
@@ -130,13 +133,13 @@ def metropolis(theta_init, cls_hat, n_iter=5000, lmax=2500, pol=True):
             inv_cls_true = inv_cls_true_new.copy()
 
         all_theta.append(theta.copy())
-        np.save("trace_plot.npy",np.array(all_theta))
+        np.save("trace_plot_marginal0.npy",np.array(all_theta))
 
     return np.array(all_theta)
 
 
 if __name__== "__main__":
-    metropolis(COSMO_PARAMS_MEAN_PRIOR, observed_cls)
+    metropolis(true_theta, observed_cls)
 
 
 
