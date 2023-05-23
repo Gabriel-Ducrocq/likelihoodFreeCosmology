@@ -90,12 +90,12 @@ def compute_log_likelihood(cls_hat, cls_true, cls_true_inv):
 
 
 def compute_log_prior(theta):
-    return -0.5*np.sum((theta- prior_mean)**2/prior_std**2)
+    return -0.5*np.sum((theta - prior_mean)**2/prior_std**2)
 
 
 def compute_log_ratio(theta_new, cls_true_new, cls_true_inv_new, theta, cls_true, cls_true_inv, cls_hat):
     log_r = compute_log_likelihood(cls_hat, cls_true_new, cls_true_inv_new)+ compute_log_prior(theta_new) \
-        - (compute_log_likelihood(cls_hat, cls_true, cls_true_inv)+ compute_log_prior(theta))
+        - compute_log_likelihood(cls_hat, cls_true, cls_true_inv) - compute_log_prior(theta)
 
     print("Log ratio:", log_r)
     return log_r
@@ -130,6 +130,7 @@ def metropolis(theta_init, cls_hat, n_iter=5000, lmax=2500, pol=True):
             inv_cls_true = inv_cls_true_new
 
         all_theta.append(theta)
+        np.save("trace_plot.npy", np.array(all_theta))
 
     return np.array(all_theta)
 
