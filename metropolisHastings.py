@@ -92,8 +92,11 @@ def compute_log_prior(theta):
 
 
 def compute_log_ratio(theta_new, cls_true_new, cls_true_inv_new, theta, cls_true, cls_true_inv, cls_hat):
-    return compute_log_likelihood(cls_hat, cls_true_new, cls_true_inv_new)+ compute_log_prior(theta_new) \
+    log_r = compute_log_likelihood(cls_hat, cls_true_new, cls_true_inv_new)+ compute_log_prior(theta_new) \
         - (compute_log_likelihood(cls_hat, cls_true, cls_true_inv)+ compute_log_prior(theta))
+
+    print("Log ratio:", log_r)
+    return log_r
 
 def propose_theta(theta_old):
     theta_new = np.random.normal(6)*proposal_std + theta_old
