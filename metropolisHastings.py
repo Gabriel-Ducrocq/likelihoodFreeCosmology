@@ -101,6 +101,7 @@ def compute_log_ratio(theta_new, cls_true_new, cls_true_inv_new, theta, cls_true
     return log_r
 
 def propose_theta(theta_old):
+    print(np.random.normal(6)*proposal_std)
     theta_new = np.random.normal(6)*proposal_std + theta_old
     return theta_new
 
