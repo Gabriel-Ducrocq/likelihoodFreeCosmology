@@ -1,6 +1,6 @@
 import numpy as np
 from numba import prange, njit
-import utils
+import utils_mh
 import time
 
 
@@ -79,7 +79,7 @@ def compute_log_likelihood(cls_hat, cls_true, cls_true_inv):
     l = cls_true.shape[0]
     log_lik_ell = np.zeros(l)
     for m in prange(l):
-        log_lik_ell[m] = -((2*m+1)/2) * utils.compute_trace(utils.matrix_product(cls_hat, cls_true_inv)) - ((2*m+1)/2) * np.log(utils.compute_3x3_det(cls_true))
+        log_lik_ell[m] = -((2*m+1)/2) * utils_mh.compute_trace(utils_mh.matrix_product(cls_hat, cls_true_inv)) - ((2*m+1)/2) * np.log(utils_mh.compute_3x3_det(cls_true))
 
     return np.sum(log_lik_ell)
 
@@ -101,8 +101,8 @@ def metropolis(theta_init, cls_hat, n_iter=5000, lmax=2500, pol=True):
     all_theta = []
     all_theta.append(theta_init)
     theta = theta_init
-    cls_true = utils.generate_matrix_cls(theta, pol=pol)
-    inv_cls_true = utils.invert_all_matrices(cls_true)
+    cls_true = utils_mh.generate_matrix_cls(theta, pol=pol)
+    inv_cls_true = utils_mh.invert_all_matrices(cls_true)
     start = time.time()
     for l in range(1,n_iter+1):
         if l+1%100==0:
@@ -112,8 +112,8 @@ def metropolis(theta_init, cls_hat, n_iter=5000, lmax=2500, pol=True):
             start = time.time()
 
         theta_new = propose_theta(theta)
-        cls_true_new = utils.generate_matrix_cls(theta_new, pol=pol)
-        inv_cls_true_new = utils.invert_all_matrices(cls_true_new)
+        cls_true_new = utils_mh.generate_matrix_cls(theta_new, pol=pol)
+        inv_cls_true_new = utils_mh.invert_all_matrices(cls_true_new)
 
         log_ratio = compute_log_ratio(theta_new, cls_true_new, inv_cls_true_new, theta, cls_true, inv_cls_true, cls_hat)
         if np.log(np.random.uniform()) < log_ratio:
