@@ -84,7 +84,7 @@ def compute_log_likelihood(cls_hat, cls_true, cls_true_inv):
     for m in prange(2, l):
         ##We use a -2 offset because in the cls_hat and cls_true l=2 is in fact at index 0
         log_lik_ell[m] = -((2*m+1)/2) * utils_mh.compute_trace(utils_mh.matrix_product(cls_hat[m-2], cls_true_inv[m-2])) - ((2*m+1)/2) * np.log(utils_mh.compute_3x3_det(cls_true[m-2]))
-        print("Log lik ell", str(m), log_lik_ell[m])
+        #print("Log lik ell", str(m), log_lik_ell[m])
 
     return np.sum(log_lik_ell)
 
@@ -97,11 +97,7 @@ def compute_log_ratio(theta_new, cls_true_new, cls_true_inv_new, theta, cls_true
     log_r = compute_log_likelihood(cls_hat, cls_true_new, cls_true_inv_new)+ compute_log_prior(theta_new) \
         - (compute_log_likelihood(cls_hat, cls_true, cls_true_inv)+ compute_log_prior(theta))
 
-    #print("Prior", compute_log_prior(theta_new))
-    #print("Prior", compute_log_prior(theta))
-    #print("Lik", compute_log_likelihood(cls_hat, cls_true_new, cls_true_inv_new))
-    #print("Lik", compute_log_likelihood(cls_hat, cls_true, cls_true_inv))
-    #print("Log ratio:", log_r)
+    print("Log ratio:", log_r)
     return log_r
 
 def propose_theta(theta_old):
