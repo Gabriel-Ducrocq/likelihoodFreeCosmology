@@ -16,14 +16,14 @@ for i in range(1, 4):
         all_cls_ee.append(np.load("data/polarizationGaussianPrior/all_cls_ee_hat.npy"))
         all_cls_bb.append(np.load("data/polarizationGaussianPrior/all_cls_bb_hat.npy"))
         all_cls_te.append(np.load("data/polarizationGaussianPrior/all_cls_te_hat.npy"))
-        print(np.load("data/polarizationGaussianPrior/all_theta.npy").shape)
+        #print(np.load("data/polarizationGaussianPrior/all_theta.npy").shape)
     else:
         all_theta.append(np.load("data/polarizationGaussianPrior/all_theta" + str(i) + ".npy"))
         all_cls_tt.append(np.load("data/polarizationGaussianPrior/all_cls_tt_hat" + str(i) + ".npy"))
         all_cls_ee.append(np.load("data/polarizationGaussianPrior/all_cls_ee_hat" + str(i) + ".npy"))
         all_cls_bb.append(np.load("data/polarizationGaussianPrior/all_cls_bb_hat" + str(i) + ".npy"))
         all_cls_te.append(np.load("data/polarizationGaussianPrior/all_cls_te_hat" + str(i) + ".npy"))
-        print(np.load("data/polarizationGaussianPrior/all_theta" + str(i) + ".npy").shape)
+        #print(np.load("data/polarizationGaussianPrior/all_theta" + str(i) + ".npy").shape)
 
 all_cls_tt = np.vstack(all_cls_tt)
 all_cls_ee = np.vstack(all_cls_ee)
@@ -49,6 +49,8 @@ observed_cls[:, 2, 2] = observed_cls_bb
 observed_cls[:, 1, 0] = observed_cls_te
 observed_cls[:, 0, 1] = observed_cls_te
 
+
+print("observed CLS shape:", observed_cls.shape)
 
 COSMO_PARAMS_NAMES = ["n_s", "omega_b", "omega_cdm", "100*theta_s", "ln10^{10}A_s", "tau_reio"] # Parameters names
 COSMO_PARAMS_MEAN_PRIOR = np.array([0.9665, 0.02242, 0.11933, 1.04101, 3.047, 0.0561]) # Prior mean

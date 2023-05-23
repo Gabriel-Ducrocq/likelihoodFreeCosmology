@@ -105,7 +105,7 @@ def generate_cls(theta, pol = True):
 
 def generate_matrix_cls(theta, pol = True):
     cls_tt, cls_ee, cls_bb, cls_te = generate_cls(theta, pol=pol)
-    cls_true = np.zeros((L_MAX_SCALARS-2, 3, 3))
+    cls_true = np.zeros((L_MAX_SCALARS+1, 3, 3))
     cls_true[:, 0,0] = cls_tt
     cls_true[:, 1, 1] = cls_ee
     cls_true[:, 2, 2] = cls_bb
