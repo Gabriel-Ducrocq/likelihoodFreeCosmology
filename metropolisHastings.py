@@ -126,7 +126,7 @@ def metropolis(theta_init, cls_hat, n_iter=5000, lmax=2500, pol=True):
         #log_ratio = compute_log_ratio(theta_new, cls_true_new, inv_cls_true_new, theta, cls_true, inv_cls_true, cls_hat)
         #if np.log(np.random.uniform()) < log_ratio:
         if True:
-            theta = theta_new
+            theta = theta_new.copy()
             #cls_true = cls_true_new
             #inv_cls_true = inv_cls_true_new
 
