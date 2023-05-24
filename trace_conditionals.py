@@ -86,18 +86,18 @@ def compute_log_lik_conditional(param):
 all_right_log_lik = []
 all_left_log_lik = []
 for ind in range(1000):
-    print(i)
+    print(ind)
     right_param = right_part[ind]
     right_log_lik = compute_log_lik_conditional(right_param)
     all_right_log_lik.append(right_log_lik)
     right_log_lik_array = np.array(all_right_log_lik)
-    np.save("right_log_lik", right_log_lik)
+    np.save("right_log_lik", right_log_lik_array)
 
     left_param = left_part[ind]
     left_log_lik = compute_log_lik_conditional(left_param)
     all_left_log_lik.append(left_log_lik)
     left_log_lik_array = np.array(all_left_log_lik)
-    np.save("left_log_lik", left_log_lik)
+    np.save("left_log_lik", left_log_lik_array)
 
 
 
