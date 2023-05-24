@@ -51,8 +51,8 @@ observed_cls[:, 0, 1] = observed_cls_te
 true_theta = all_theta[19369:][100]
 mu = 0.96993044
 std = 3.05267139e-04
-right_part = np.linspace(mu, mu+2*std, 100)
-left_part = np.linspace(mu, mu-2*std, 100)
+right_part = np.linspace(mu, mu+4*std, 1000)
+left_part = np.linspace(mu, mu-4*std, 1000)
 
 
 @njit()
