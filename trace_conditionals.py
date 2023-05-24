@@ -51,8 +51,8 @@ observed_cls[:, 0, 1] = observed_cls_te
 true_theta = all_theta[19369:][100]
 mu = 0.96993044
 std = 3.05267139e-04
-right_part = np.linspace(mu, mu+4*std, 1000)
-left_part = np.linspace(mu, mu-4*std, 1000)
+right_part = np.linspace(mu, mu+2*std, 100)
+left_part = np.linspace(mu, mu-2*std, 100)
 
 
 @njit()
@@ -91,13 +91,13 @@ for ind in range(1000):
     right_log_lik = compute_log_lik_conditional(right_param)
     all_right_log_lik.append(right_log_lik)
     right_log_lik_array = np.array(all_right_log_lik)
-    np.save("right_log_lik", right_log_lik_array)
+    np.save("right_log_lik100Again", right_log_lik_array)
 
     left_param = left_part[ind]
     left_log_lik = compute_log_lik_conditional(left_param)
     all_left_log_lik.append(left_log_lik)
     left_log_lik_array = np.array(all_left_log_lik)
-    np.save("left_log_lik", left_log_lik_array)
+    np.save("left_log_lik100Again", left_log_lik_array)
 
 
 
