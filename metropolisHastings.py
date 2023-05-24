@@ -57,7 +57,7 @@ print("observed CLS shape:", observed_cls.shape)
 COSMO_PARAMS_NAMES = ["n_s", "omega_b", "omega_cdm", "100*theta_s", "ln10^{10}A_s", "tau_reio"] # Parameters names
 COSMO_PARAMS_MEAN_PRIOR = np.array([0.9665, 0.02242, 0.11933, 1.04101, 3.047, 0.0561]) # Prior mean
 COSMO_PARAMS_SIGMA_PRIOR = np.array([0.0038, 0.00014, 0.00091, 0.00029, 0.014, 0.0071]) # Prior std
-proposal_std = COSMO_PARAMS_SIGMA_PRIOR*0.5
+proposal_std = COSMO_PARAMS_SIGMA_PRIOR*0.4
 prior_std = COSMO_PARAMS_SIGMA_PRIOR
 prior_mean = COSMO_PARAMS_MEAN_PRIOR
 
@@ -91,7 +91,7 @@ def compute_log_likelihood(cls_hat, cls_true, cls_true_inv):
 
 
 def compute_log_prior(theta):
-    return -0.5*np.sum((theta - prior_mean)**2/prior_std**2)
+    return -0.5*np.sum((theta[0] - prior_mean[0])**2/prior_std[0]**2)
 
 
 def compute_log_ratio(theta_new, cls_true_new, cls_true_inv_new, theta, cls_true, cls_true_inv, cls_hat):
@@ -133,13 +133,15 @@ def metropolis(theta_init, cls_hat, n_iter=5000, lmax=2500, pol=True):
             inv_cls_true = inv_cls_true_new.copy()
 
         all_theta.append(theta.copy())
-        np.save("trace_plot_marginal0.npy",np.array(all_theta))
+        np.save("trace_plot_marginal0_bis.npy",np.array(all_theta))
 
     return np.array(all_theta)
 
 
 if __name__== "__main__":
-    metropolis(true_theta, observed_cls)
+    theta_init = np.array([0.9700805, 0.02216023, 0.12027733, 1.04093185, 3.04730308,
+           0.05417271])
+    metropolis(theta_init, observed_cls)
 
 
 
