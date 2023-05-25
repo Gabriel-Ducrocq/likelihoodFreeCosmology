@@ -161,7 +161,7 @@ def metropolis(theta_init, cls_hat, n_iter=10000, lmax=2500, pol=True, proposal_
             inv_cls_true = inv_cls_true_new.copy()
 
         all_theta.append(theta.copy())
-        np.save("trace_plotDefinitive.npy",np.array(all_theta))
+        np.save("trace_plotDefinitiveBis.npy",np.array(all_theta))
 
     return np.array(all_theta)
 
@@ -169,7 +169,9 @@ def metropolis(theta_init, cls_hat, n_iter=10000, lmax=2500, pol=True, proposal_
 if __name__== "__main__":
     avg, covariance, cholesky_cov =  get_proposal_params(["trace_plot.npy", "trace_plotBis.npy"], 2000)
     cholesky_cov *= 1
-    metropolis(avg, observed_cls, proposal_cholesky=cholesky_cov)
+    init_theta = np.array([0.97139447, 0.02214451, 0.11993403, 1.04101585, 3.05212972,
+       0.0572389 ])
+    metropolis(init_theta, observed_cls, proposal_cholesky=cholesky_cov)
 
 
 
