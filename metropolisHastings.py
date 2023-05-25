@@ -98,7 +98,7 @@ def propose_theta(theta_old):
     return theta_new
 
 
-def metropolis(theta_init, cls_hat, n_iter=5000, lmax=2500, pol=True):
+def metropolis(theta_init, cls_hat, n_iter=10000, lmax=2500, pol=True):
     all_theta = []
     all_theta.append(theta_init)
     theta = theta_init
@@ -127,14 +127,14 @@ def metropolis(theta_init, cls_hat, n_iter=5000, lmax=2500, pol=True):
             inv_cls_true = inv_cls_true_new.copy()
 
         all_theta.append(theta.copy())
-        np.save("trace_plot.npy",np.array(all_theta))
+        np.save("trace_plotBis.npy",np.array(all_theta))
 
     return np.array(all_theta)
 
 
 if __name__== "__main__":
-    #theta_init = np.array([0.9700805, 0.02216023, 0.12027733, 1.04093185, 3.04730308,
-    #       0.05417271])
+    theta_init = np.array([0.97430337, 0.02208326, 0.11985114, 1.0409746, 3.05031894,
+       0.05739422])
     metropolis(true_theta, observed_cls)
 
 

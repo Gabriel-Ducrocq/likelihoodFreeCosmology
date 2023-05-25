@@ -186,7 +186,7 @@ times = torch.linspace(0, 1, 1000)[1:, None]
 obs = torch.ones((10000,test_cls.shape[1]))*test_cls[100:101, :]
 print("obs shape:", obs.shape)
 #print("times_embedd", times_emb.shape)
-n_param = 1
+n_param = 3
 #Also for the 10th example !
 _, sample = brid.euler_maruyama(torch.randn(size=(10000, 6)), times, 1, network, obs)
 
