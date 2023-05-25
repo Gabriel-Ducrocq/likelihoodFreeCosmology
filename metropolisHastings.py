@@ -169,7 +169,7 @@ def metropolis(theta_init, cls_hat, n_iter=10000, lmax=2500, pol=True, proposal_
 if __name__== "__main__":
     avg, covariance, cholesky_cov =  get_proposal_params(["trace_plot.npy", "trace_plotBis.npy"], 2000)
     cholesky_cov *= 0.5
-    metropolis(avg, observed_cls, cholesky_cov)
+    metropolis(avg, observed_cls, proposal_cholesky=cholesky_cov)
 
 
 
