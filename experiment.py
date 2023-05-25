@@ -186,7 +186,7 @@ times = torch.linspace(0, 1, 1000)[1:, None]
 obs = torch.ones((10000,test_cls.shape[1]))*test_cls[100:101, :]
 print("obs shape:", obs.shape)
 #print("times_embedd", times_emb.shape)
-n_param = 3
+n_param = 0
 #Also for the 10th example !
 _, sample = brid.euler_maruyama(torch.randn(size=(10000, 6)), times, 1, network, obs)
 
@@ -195,6 +195,7 @@ plt.hist(sample[:, n_param].detach().numpy(), density=True, alpha=0.5)
 plt.hist(test_theta[:, n_param], alpha=0.5, density=True)
 plt.axvline(x=test_theta[100, n_param])
 plt.show()
+np.save("data/diffusion_approx.npy", sample)
 
 
 

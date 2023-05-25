@@ -61,6 +61,37 @@ proposal_std = COSMO_PARAMS_SIGMA_PRIOR*0.05
 prior_std = COSMO_PARAMS_SIGMA_PRIOR
 prior_mean = COSMO_PARAMS_MEAN_PRIOR
 
+
+def get_mean(trace):
+    """
+    Computes the mean from a previous run
+    :param trace: np array (N_sample, 6)
+    :return: estimated mean
+    """
+    return np.mean(trace, axis=0)
+
+def get_cov(trace):
+    """
+    Compute the covariance matrix from a previous run
+    :param trace: np array (N_sample, 6)
+    :return: estimated covariance matrice np array (6,6)
+    """
+    return np.cov(trace.T)
+
+def get_proposal_params(list_files, burnin):
+    all_trace = []
+    for file in list_files:
+        all_trace.append(np.load(file))
+
+    trace = np.concatenate(all_trace)
+    trace_no_burnin = trace[burnin:, :]
+    avg = get_mean(trace_no_burnin)
+    covariance = get_cov(trace_no_burnin)
+    cholesky_cov = np.linalg.cholesky(covariance)
+    return avg, covariance, cholesky_cov
+
+
+
 @njit()
 def compute_log_likelihood(cls_hat, cls_true, cls_true_inv):
     """
@@ -93,12 +124,15 @@ def compute_log_ratio(theta_new, cls_true_new, cls_true_inv_new, theta, cls_true
     print("Log ratio:", log_r)
     return log_r
 
-def propose_theta(theta_old):
+def propose_theta(theta_old, cholesky_cov):
+    if cholesky_cov:
+        return np.dot(cholesky_cov, np.random.normal(size=6)) + theta_old
+
     theta_new = np.random.normal(size = 6)*proposal_std + theta_old
     return theta_new
 
 
-def metropolis(theta_init, cls_hat, n_iter=10000, lmax=2500, pol=True):
+def metropolis(theta_init, cls_hat, n_iter=10000, lmax=2500, pol=True, proposal_cholesky=None):
     all_theta = []
     all_theta.append(theta_init)
     theta = theta_init
@@ -114,7 +148,7 @@ def metropolis(theta_init, cls_hat, n_iter=10000, lmax=2500, pol=True):
             print("Duration:", end - start)
             start = time.time()
 
-        theta_new = propose_theta(theta)
+        theta_new = propose_theta(theta, proposal_cholesky)
         #If we target a condtional
         #theta_new[1:] = true_theta[1:]
         cls_true_new = utils_mh.generate_matrix_cls(theta_new, pol=pol)
@@ -127,15 +161,15 @@ def metropolis(theta_init, cls_hat, n_iter=10000, lmax=2500, pol=True):
             inv_cls_true = inv_cls_true_new.copy()
 
         all_theta.append(theta.copy())
-        np.save("trace_plotBis.npy",np.array(all_theta))
+        np.save("trace_plotDefinitive.npy",np.array(all_theta))
 
     return np.array(all_theta)
 
 
 if __name__== "__main__":
-    theta_init = np.array([0.97430337, 0.02208326, 0.11985114, 1.0409746, 3.05031894,
-       0.05739422])
-    metropolis(theta_init, observed_cls)
+    avg, covariance, cholesky_cov =  get_proposal_params(["trace_plot.npy", "trace_plotBis.npy"], 2000)
+    cholesky_cov *= 0.5
+    metropolis(avg, observed_cls, cholesky_cov)
 
 
 
