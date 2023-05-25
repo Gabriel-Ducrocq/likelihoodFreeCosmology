@@ -135,7 +135,7 @@ def metropolis(theta_init, cls_hat, n_iter=10000, lmax=2500, pol=True):
 if __name__== "__main__":
     theta_init = np.array([0.97430337, 0.02208326, 0.11985114, 1.0409746, 3.05031894,
        0.05739422])
-    metropolis(true_theta, observed_cls)
+    metropolis(theta_init, observed_cls)
 
 
 
