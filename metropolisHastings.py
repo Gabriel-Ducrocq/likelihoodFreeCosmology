@@ -125,7 +125,7 @@ def compute_log_ratio(theta_new, cls_true_new, cls_true_inv_new, theta, cls_true
     return log_r
 
 def propose_theta(theta_old, cholesky_cov):
-    if cholesky_cov:
+    if cholesky_cov is not None:
         return np.dot(cholesky_cov, np.random.normal(size=6)) + theta_old
 
     theta_new = np.random.normal(size = 6)*proposal_std + theta_old
