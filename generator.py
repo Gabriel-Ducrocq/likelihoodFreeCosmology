@@ -51,7 +51,8 @@ all_true_cls_te = []
 all_theta = []
 start = time()
 theta_proposal = np.load("data/mixture_round0.npy")
-for n in range(4364, 22001):
+##4365 is a problem
+for n in range(4366, 22001):
     if n % 1 == 0:
         print(n/22000)
 
