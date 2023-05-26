@@ -16,6 +16,7 @@ COSMO_PARAMS_NAMES = ["n_s", "omega_b", "omega_cdm", "100*theta_s", "ln10^{10}A_
 COSMO_PARAMS_MEAN_PRIOR = np.array([0.9665, 0.02242, 0.11933, 1.04101, 3.047, 0.0561]) # Prior mean
 COSMO_PARAMS_SIGMA_PRIOR = np.array([0.0038, 0.00014, 0.00091, 0.00029, 0.014, 0.0071]) # Prior std
 
+
 def generate_cls(theta, pol = True):
     """
     generates the power spectrum corresponding the input cosmological parameters.
@@ -47,6 +48,8 @@ def generate_cls(theta, pol = True):
         cosmo.struct_cleanup()
         cosmo.empty()
         return [cls_tt, cls_ee, cls_bb, cls_te]
+
+
 
 theta = COSMO_PARAMS_MEAN_PRIOR + np.random.normal(size=6)*COSMO_PARAMS_SIGMA_PRIOR #simulate from the prior
 pow_spec = generate_cls(theta) #getting the corresponding temperature  polarization power spectra.
