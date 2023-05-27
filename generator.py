@@ -74,7 +74,7 @@ for n in range(6401, 22001):
     all_cls_te.append(cls_te_hat)
     all_theta.append(theta)
 
-    if n % 100 == 0:
+    if n % 1 == 0:
         all_cls_tt_array = np.array(all_cls_tt)
         all_cls_ee_array = np.array(all_cls_ee)
         all_cls_bb_array = np.array(all_cls_bb)
