@@ -52,7 +52,7 @@ all_theta = []
 start = time()
 theta_proposal = np.load("data/mixture_round0.npy")
 ##4365 is a problem so I skipped 4364 and 4365
-for n in range(6401, 22001):
+for n in range(6434, 22001):
     if n % 1 == 0:
         print(n/22000)
 
@@ -74,7 +74,7 @@ for n in range(6401, 22001):
     all_cls_te.append(cls_te_hat)
     all_theta.append(theta)
 
-    if n % 1 == 0:
+    if n % 100 == 0:
         all_cls_tt_array = np.array(all_cls_tt)
         all_cls_ee_array = np.array(all_cls_ee)
         all_cls_bb_array = np.array(all_cls_bb)
