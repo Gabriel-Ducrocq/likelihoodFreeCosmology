@@ -86,20 +86,20 @@ for n in range(6434, 22001):
         all_true_cls_bb_array = np.array(all_true_cls_bb)
         all_true_cls_te_array = np.array(all_true_cls_te)
 
-        np.save("/home/gabdu45/likelihoodFreeCosmology/data/polarizationGaussianRound1/all_cls_tt3.npy", all_true_cls_tt_array)
+        np.save("/home/gabdu45/likelihoodFreeCosmology/data/polarizationGaussianRound1/all_cls_tt4.npy", all_true_cls_tt_array)
 
-        np.save("/home/gabdu45/likelihoodFreeCosmology/data/polarizationGaussianRound1/all_cls_ee3.npy", all_true_cls_ee_array)
+        np.save("/home/gabdu45/likelihoodFreeCosmology/data/polarizationGaussianRound1/all_cls_ee4.npy", all_true_cls_ee_array)
 
-        np.save("/home/gabdu45/likelihoodFreeCosmology/data/polarizationGaussianRound1/all_cls_bb3.npy", all_true_cls_bb_array)
+        np.save("/home/gabdu45/likelihoodFreeCosmology/data/polarizationGaussianRound1/all_cls_bb4.npy", all_true_cls_bb_array)
 
-        np.save("/home/gabdu45/likelihoodFreeCosmology/data/polarizationGaussianRound1/all_cls_te3.npy", all_true_cls_te_array)
+        np.save("/home/gabdu45/likelihoodFreeCosmology/data/polarizationGaussianRound1/all_cls_te4.npy", all_true_cls_te_array)
 
-        np.save("/home/gabdu45/likelihoodFreeCosmology/data/polarizationGaussianRound1/all_cls_tt_hat3.npy", all_cls_tt_array)
+        np.save("/home/gabdu45/likelihoodFreeCosmology/data/polarizationGaussianRound1/all_cls_tt_hat4.npy", all_cls_tt_array)
 
-        np.save("/home/gabdu45/likelihoodFreeCosmology/data/polarizationGaussianRound1/all_cls_ee_hat3.npy", all_cls_ee_array)
-        np.save("/home/gabdu45/likelihoodFreeCosmology/data/polarizationGaussianRound1/all_cls_bb_hat3.npy", all_cls_bb_array)
-        np.save("/home/gabdu45/likelihoodFreeCosmology/data/polarizationGaussianRound1/all_cls_te_hat3.npy", all_cls_te_array)
-        np.save("/home/gabdu45/likelihoodFreeCosmology/data/polarizationGaussianRound1/all_theta3.npy", all_theta_array)
+        np.save("/home/gabdu45/likelihoodFreeCosmology/data/polarizationGaussianRound1/all_cls_ee_hat4.npy", all_cls_ee_array)
+        np.save("/home/gabdu45/likelihoodFreeCosmology/data/polarizationGaussianRound1/all_cls_bb_hat4.npy", all_cls_bb_array)
+        np.save("/home/gabdu45/likelihoodFreeCosmology/data/polarizationGaussianRound1/all_cls_te_hat4.npy", all_cls_te_array)
+        np.save("/home/gabdu45/likelihoodFreeCosmology/data/polarizationGaussianRound1/all_theta4.npy", all_theta_array)
 
 
 
